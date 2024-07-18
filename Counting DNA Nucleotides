@@ -1,1 +1,35 @@
+#Import the function
+from google.colab import files
+
+# Upload the DNA sequence file
+uploaded_file = files.upload()
+
+print(uploaded_file)
+
+# list(uploaded_file.keys()) turns these keys into a list.
+# uploaded_file.keys() returns all keys (filenames, A T C G) in the dictionary.
+# [0] takes the first filename from this list and stores it in file_name.
+
+file_name = list(uploaded_file.keys())[0]
+
+# file_name = rosalind_dna(7)
+dna_bytes = uploaded_file[file_name]
+
+# Decode the byte string into a UTF-8 encoded string
+dna_sequence = dna_bytes.decode('utf-8')
+
+# Remove potential carriage return characters (\r) to avoid issues
+dna_sequence = dna_sequence.replace('\r', '')
+
+# Count the occurrences of each nucleotide (A, C, G, T)
+nucleotide_counts =   {'A': dna_sequence.count('A'),
+                       'C': dna_sequence.count('C'),
+                       'G': dna_sequence.count('G'),
+                       'T': dna_sequence.count('T')}
+
+# Print the nucleotide counts in a clear format
+print("Nucleotide Counts:")
+for nucleotide, count in nucleotide_counts.items():
+  print(f"{nucleotide}: {count}")
+
 
